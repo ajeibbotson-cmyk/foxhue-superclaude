@@ -14,7 +14,14 @@
     "location": "City, Region",
     "phone": "000 000 0000",
     "email": "hello@client.com",
-    "website": "https://client.com"
+    "website": "https://client.com",
+    "social": {
+      "instagram": "",
+      "facebook": "",
+      "tiktok": "",
+      "linkedin": "",
+      "google_business": ""
+    }
   },
   "brand": {
     "colors": {
@@ -39,5 +46,11 @@
     { "key": "homepage", "title": "Homepage", "slug": "index" },
     { "key": "about", "title": "About", "slug": "about" },
     { "key": "contact", "title": "Contact", "slug": "contact" }
-  ]
+  ],
+  "deliverables": {
+    "seo_report": true,
+    "creative_process": true,
+    "social_audit": false,
+    "landing_page": false
+  }
 }
