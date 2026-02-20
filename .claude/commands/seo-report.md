@@ -115,5 +115,6 @@ A self-contained, branded HTML report. Requirements:
 - If Perplexity returns limited data for a competitor, note it honestly
 - Report must be client-ready — professional language, no technical jargon without explanation
 - HTML must be fully self-contained (inline CSS or style block, Google Fonts via link)
+- Page wrapper max-width: `1100px` — gap analysis tables need room to breathe, not feel cramped
 - Include print media queries for clean printing
 - All brand values from project.json, no hardcoded colors/fonts
