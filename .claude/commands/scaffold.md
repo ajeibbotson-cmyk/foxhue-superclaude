@@ -22,8 +22,14 @@ A branded Foxhue Project Hub linking to all deliverables. This is the main entry
 
 Requirements:
 - Title: `{client.name} — Project Hub`
-- Header: "Foxhue Project Hub" product branding (small text above the client name)
-- Client name as main heading, tagline as subtitle
+- Header: "Welcome to the Foxhue Project Hub" as the main heading
+- Below the heading, a horizontal info bar with three columns (separated by top/bottom border lines):
+  - **Client** → `{client.name}`
+  - **Industry** → `{client.industry}`
+  - **Location** → `{client.location}`
+  - Each column has a small uppercase label above the value
+  - Values use the heading font, labels use small uppercase body font in accent colour
+  - On mobile, the three columns stack vertically
 - **4-card grid layout** linking to deliverables:
   1. **Creative Process** → `docs/creative-process.html` — "See how we developed your design directions"
   2. **Design Directions** → `designs/index.html` — "Review three distinct visual approaches"
