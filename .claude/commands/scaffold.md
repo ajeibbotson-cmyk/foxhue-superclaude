@@ -9,9 +9,10 @@ Parse the config file at the repo root. Extract:
 - `agency.*` — agency name, emails, GitHub org
 - `client.*` — client name, short name, tagline, slug, industry, location, phone, email
 - `client.social.*` — social media profile URLs
+- `brand.mood` — (optional) array of mood keywords, used as steering hints if present
 - `brand.colors.*` — primary, accent, accent_hover, background, surface
 - `brand.fonts.*` — heading, body, google_fonts_url
-- `designs[]` — array of { key, name, mood }
+- `designs[]` — array of { key, name, mood, palette }
 - `pages[]` — array of { key, title, slug }
 - `deliverables.*` — feature flags (seo_report, creative_process, social_audit, landing_page)
 
@@ -55,6 +56,7 @@ Client-facing design direction hub page.
 
 Requirements:
 - Title: `{client.name} — Design Directions`
+- Include a subtle "← Project Hub" link at the top of the page, linking to `../index.html` — small, muted, accent colour on hover
 - One card per entry in `designs[]` array, linking to `design-{key}/index.html`
 - Each card shows: design name, mood description
 - Styled with brand tokens
@@ -97,6 +99,7 @@ Client-facing layout preference review page.
 
 Requirements:
 - Title: `{client.name} — Layout Review`
+- Include a subtle "← Project Hub" link at the top of the page, linking to `../../index.html` — small, muted, accent colour on hover
 - For EACH page in `pages[]`, generate a review card with:
   - Page title as heading
   - 3 layout options (A / B / C) as radio buttons or visual selectors
@@ -142,7 +145,7 @@ Project context file for Claude Code sessions. Include:
 - Subdirectory descriptions (website, designs, landing, docs, variants)
 - Deployment notes (GitHub Pages from main branch)
 - Architecture notes (breakpoints, image strategy, no JS except review hub)
-- All available commands: `/scaffold`, `/seo-report`, `/social-audit`, `/creative-process`, `/landing-page`
+- All available commands: `/scaffold`, `/brand-palette`, `/seo-report`, `/social-audit`, `/creative-process`, `/landing-page`
 - `project.json` schema reference (all sections including `client.social` and `deliverables`)
 
 ### 8. Generate client asset brief
@@ -209,4 +212,5 @@ Conditionally adjust items based on `deliverables` flags:
 - Review hub must use AJAX form submission (not redirect) — match the MARR Laser implementation
 - Generated files should be production-quality, not scaffolding stubs
 - The project hub (index.html) is now client-facing with 4-card layout and Foxhue branding
+- Every client-facing page must include a "← Project Hub" navigation link at the top (subtle, muted styling, accent on hover) so users never need the browser back button
 - Project status tracker adjusts based on deliverables flags

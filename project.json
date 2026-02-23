@@ -24,12 +24,13 @@
     }
   },
   "brand": {
+    "mood": [],
     "colors": {
-      "primary": "#3C3C3B",
-      "accent": "#C6BCB3",
-      "accent_hover": "#B4A89D",
-      "background": "#F9F9F8",
-      "surface": "#ECE5E0"
+      "primary": "#333333",
+      "accent": "#888888",
+      "accent_hover": "#666666",
+      "background": "#F5F5F5",
+      "surface": "#E0E0E0"
     },
     "fonts": {
       "heading": "'Cormorant Garamond', serif",
@@ -38,9 +39,9 @@
     }
   },
   "designs": [
-    { "key": "a", "name": "Direction A", "mood": "Mood description for direction A" },
-    { "key": "b", "name": "Direction B", "mood": "Mood description for direction B" },
-    { "key": "c", "name": "Direction C", "mood": "Mood description for direction C" }
+    { "key": "a", "name": "Direction A", "mood": "Mood description for direction A", "palette": null },
+    { "key": "b", "name": "Direction B", "mood": "Mood description for direction B", "palette": null },
+    { "key": "c", "name": "Direction C", "mood": "Mood description for direction C", "palette": null }
   ],
   "pages": [
     { "key": "homepage", "title": "Homepage", "slug": "index" },

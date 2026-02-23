@@ -21,13 +21,26 @@ Fill out every field in `project.json`:
 | `agency` | Already set — verify emails | Internal |
 | `client` | Name, tagline, slug, industry, location, contact | Client brief / intake call |
 | `client.social` | Social media profile URLs | Client or manual search |
-| `brand.colors` | Primary, accent, background, surface | Brand guidelines PDF |
+| `brand.mood` | (Optional) mood keywords if client has strong colour preferences | Client conversation |
+| `brand.colors` | Primary, accent, background, surface | Brand guidelines PDF, or run `/brand-palette` to generate suggestions |
 | `brand.fonts` | Heading + body fonts, Google Fonts URL | Brand guidelines PDF |
 | `designs` | 3 direction names and mood descriptions | Decide during research phase (can update later) |
 | `pages` | List of website pages | Sitemap from planning |
 | `deliverables` | Feature flags for which reports to generate | Project scope |
 
-### 1.3 Run /scaffold
+### 1.3 Run /brand-palette (if no style guide)
+If the client doesn't have a brand guidelines PDF with defined colours, generate palette suggestions:
+```
+/brand-palette
+```
+This researches the client's current site and competitor aesthetics via one Perplexity query, then derives palettes from each direction's mood using colour theory. Generates `docs/brand-palette.html` — a client-ready report with 3 distinct palette proposals (one per design direction).
+
+After reviewing the proposals:
+- Pick a palette (or mix elements from multiple proposals)
+- Copy the chosen hex values into `project.json` → `brand.colors`
+- If the client has a style guide PDF, skip this step and fill `brand.colors` directly from the PDF
+
+### 1.4 Run /scaffold
 ```
 /scaffold
 ```
@@ -41,11 +54,11 @@ This generates:
 - `docs/client-asset-brief.md` — Asset request checklist
 - `docs/project-status.md` — Deliverables tracker
 
-### 1.4 Send asset brief
+### 1.5 Send asset brief
 - Send `docs/client-asset-brief.md` to the client (email or shared doc)
 - Request brand guidelines, photos, copy, testimonials, social links
 
-### 1.5 Enable GitHub Pages
+### 1.6 Enable GitHub Pages
 - Repo **Settings** → **Pages** → Source: **Deploy from branch** → Branch: **main**, folder: **/ (root)**
 - Share the hub link: `https://ajeibbotson-cmyk.github.io/{client-slug}/`
 
@@ -85,6 +98,7 @@ This generates:
 - Read both reports
 - Identify patterns: what works in this market, what's missing, where the opportunities are
 - Use insights to refine design direction names and moods in `project.json`
+- If research changes the mood keywords or direction moods, re-run `/brand-palette` to update palette proposals
 - Update `docs/project-status.md` — tick off research phase items
 
 ---
@@ -187,6 +201,7 @@ Choose delivery method:
 | Command | When to run | Output |
 |---------|-------------|--------|
 | `/scaffold` | Day 1, after filling project.json | All infrastructure files |
+| `/brand-palette` | Day 1, before scaffold (if no style guide) | `docs/brand-palette.html` |
 | `/seo-report` | Research phase | `docs/seo-competitor-report.html` |
 | `/social-audit` | Research phase (if applicable) | `docs/social-media-audit.html` |
 | `/creative-process` | After research + designs built | `docs/creative-process.html` |
@@ -206,6 +221,7 @@ Choose delivery method:
 | `CLAUDE.md` | Project context | `/scaffold` |
 | `docs/client-asset-brief.md` | Asset request checklist | `/scaffold` |
 | `docs/project-status.md` | Deliverables tracker | `/scaffold` |
+| `docs/brand-palette.html` | Colour palette proposals | `/brand-palette` |
 | `docs/seo-competitor-report.html` | SEO analysis | `/seo-report` |
 | `docs/social-media-audit.html` | Social audit | `/social-audit` |
 | `docs/creative-process.html` | Creative process | `/creative-process` |
