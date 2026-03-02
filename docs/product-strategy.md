@@ -62,11 +62,11 @@ Every command reads `project.json`. Every output is client-ready HTML — not in
 |-------|----------|-------------|
 | **1. Setup** | Day 1 | Fill `project.json` → run `/scaffold` → enable GitHub Pages → send asset brief to client |
 | **2. Research** | Days 2-3 | Curate design references → run `/seo-report` → run `/social-audit` (if applicable) |
-| **3. Design** | Days 3-5 | Build 3 design directions → run `/creative-process` → share hub → client picks favourite |
+| **3. Design** | Days 3-5 | Build 3 design directions + wildcard → run `/creative-process` → share hub → client picks favourite |
 | **4. Build** | Days 5-10 | Build all pages + layout variants → run `/landing-page` (if applicable) → client submits layout preferences via review hub |
 | **5. Handoff** | Days 10-12 | Apply preferences → final polish → deliver (Webflow import, static, or handoff docs) |
 
-The system handles Phases 1 and 2 almost entirely. Phase 3 (design direction creation) doesn't have a formalised command yet — it's currently a Claude prompting session using Perplexity research and the mood descriptions from `project.json`. Building a `/design-directions` command is the key piece that would make Phase 3 as streamlined as the rest. Phases 4 and 5 are a mix of manual build and automated tooling.
+The system handles Phases 1-3 almost entirely. `/design-directions` generates 3 mood-driven homepage concepts from `project.json` plus a wildcard direction driven by curated visual references (Dribbble, Webflow templates, etc.). The wildcard gives clients something unexpected alongside the industry-appropriate options. Phases 4 and 5 are a mix of manual build and automated tooling.
 
 ---
 
@@ -81,7 +81,7 @@ What the client actually sees — all accessed from a single project hub URL:
 | **SEO Competitor Report** | Real research on their local competitors — scored gap analysis, keyword opportunities, actionable recommendations |
 | **Social Media Audit** | Platform assessment, competitor social analysis, content strategy with a 3-month roadmap |
 | **Creative Process** | Narrative walkthrough of how we developed the design directions — shows our thinking, builds confidence |
-| **Design Directions** | 3 distinct branded homepage concepts to choose from |
+| **Design Directions** | 3 distinct branded homepage concepts + a wildcard direction to choose from |
 | **Layout Review Hub** | Per-page layout comparison (A/B/C) with radio selectors, notes fields, AJAX form submission, localStorage auto-save |
 
 The client never sees a repo, a terminal, or a config file. They see a polished, branded experience at a GitHub Pages URL.
@@ -96,7 +96,7 @@ MARR Laser is the first live project built on this system. It demonstrates the f
 
 - 10-page website with 3 layout variants per page (30 variant files)
 - 14-section landing page for laser hair removal (self-contained Webflow-embeddable blocks)
-- 3 design directions with a client review hub
+- 3 design directions + wildcard with a client review hub
 - SEO competitor report with real Perplexity-researched data on local competitors
 - Review hub with working AJAX form submission (Formsubmit.co → andrew@foxhue.com, CC ashley@foxhue.com)
 - All deployed to GitHub Pages from a single repo
@@ -186,20 +186,20 @@ The report is the real deal — professional, genuinely useful, not a teaser. Th
 |-------|--------|---------|
 | **1. "Here's your audit"** | Immediately | Link to the report. Brief summary of the top 3 findings. "Take a look and let us know if you have questions." |
 | **2. "3 things you could fix today"** | Day 3-4 | Pull the 3 quickest wins from the audit. Give them actual instructions they can follow themselves. This builds trust — we're helping, not hard-selling. |
-| **3. "What your new site could look like"** | Day 7-10 | "We've put together 3 design directions for what your website could look like — at no cost." Link to their personalised design hub. This is the moment. |
+| **3. "What your new site could look like"** | Day 7-10 | "We've put together some design directions for what your website could look like — at no cost." Link to their personalised design hub. This is the moment. |
 
 ### Stage 5: Hook
 
-**3 free design directions** generated via Foxhue Studio.
+**3 free design directions + a wildcard** generated via Foxhue Studio.
 
 - We create a `project.json` from the intake form answers
 - Run `/scaffold` to generate the infrastructure
-- Run `/design-directions` — Claude generates 3 distinct homepage concepts using Perplexity research on competitor sites and industry trends, guided by the mood descriptions in `project.json` (same approach used for MARR, but formalised as a command)
+- Run `/design-directions` — Claude generates 3 mood-driven homepage concepts using Perplexity research on competitor sites and industry trends, guided by the mood descriptions in `project.json`, plus a wildcard direction driven by curated visual references (Dribbble shots, Webflow templates, etc.) that deliberately breaks from the industry norm
 - Review and refine the output (the QA step — not the creation step)
 - Deploy to GitHub Pages
 - Send the client a link to their personalised design hub
 
-The client sees real, branded homepage concepts for their business. Not mockups in a PDF — live pages they can click through on their phone. This is where "interesting report" becomes "I want this."
+The client sees real, branded homepage concepts for their business — including one that's intentionally unexpected. Not mockups in a PDF — live pages they can click through on their phone. The wildcard often becomes the conversation starter: "We didn't expect to like that one, but..." This is where "interesting report" becomes "I want this."
 
 ### Stage 6: Convert
 
@@ -255,7 +255,7 @@ The free audit extends the current `/seo-report` with additional sections drawn 
 At the bottom of every audit:
 
 > **Want to see what your new website could look like?**
-> We've put together 3 free design directions based on your brand and industry. No obligation — just a look at what's possible.
+> We've put together some free design directions based on your brand and industry — including one that might surprise you. No obligation — just a look at what's possible.
 > [See Your Design Directions →]
 
 ### Branding
@@ -296,14 +296,14 @@ The audit shows problems. We sell the solutions.
 
 1. **Create project.json** from the intake form answers (business name, industry, location, URL → mapped into config fields)
 2. **Run `/scaffold`** to generate the project infrastructure (project hub, design directions hub)
-3. **Run `/design-directions`** — Perplexity researches competitor sites and industry aesthetics, Claude generates 3 distinct homepage concepts guided by the mood descriptions in `project.json`
+3. **Run `/design-directions`** — Perplexity researches competitor sites and industry aesthetics, Claude generates 3 mood-driven homepage concepts + a wildcard from curated visual references
 4. **Review and refine** — QA the output, adjust where needed
 5. **Deploy** to GitHub Pages
 6. **Send the link** — personalised design hub at `https://ajeibbotson-cmyk.github.io/{client-slug}/designs/`
 
 ### What the client sees
 
-A branded design hub with 3 distinct homepage concepts they can click through. Not flat mockups in a PDF — live HTML pages that work on their phone. Each direction has a different visual personality (same pattern we used for MARR: Serene Spa / Editorial Bold / Warm Boutique, adapted to their industry).
+A branded design hub with 4 homepage concepts they can click through — 3 mood-driven directions plus a wildcard that deliberately pushes beyond the expected. Not flat mockups in a PDF — live HTML pages that work on their phone. The standard directions each have a different visual personality (same pattern we used for MARR: Serene Spa / Editorial Bold / Warm Boutique, adapted to their industry). The wildcard draws from curated Dribbble/Webflow inspiration and shows what's possible when you break from industry convention.
 
 ### Time investment per lead
 
@@ -311,12 +311,12 @@ A branded design hub with 3 distinct homepage concepts they can click through. N
 |------|------|-----------|
 | Create project.json | 10 min | Could be automated from form data (stretch goal) |
 | Run `/scaffold` | 2 min | Yes |
-| Run `/design-directions` | 15-20 min | Yes — Perplexity research + Claude generation |
+| Run `/design-directions` | 15-20 min | Yes — Perplexity research + Claude generation (3 standard + wildcard) |
 | Review and refine output | 30-45 min | No — QA and adjustments |
 | Deploy + send link | 5 min | Yes |
 | **Total** | **~1 hour** | **~70% automated, remainder is QA** |
 
-The bottleneck isn't design skill — it's that `/design-directions` doesn't exist as a command yet. Once built, the creation step is automated. The human time is review and refinement, not creation from scratch.
+The `/design-directions` command handles creation. The human time is review and refinement, not creation from scratch. The wildcard direction requires curated inspiration links upfront (see below), but this is a one-time investment per industry vertical — the same Dribbble/Webflow references can be reused across leads in the same sector.
 
 ### When to invest the hour
 
@@ -335,7 +335,7 @@ Not every lead gets design directions. The qualification logic:
 
 | Tier | What they get | Price | Notes |
 |------|--------------|-------|-------|
-| **Free** | Website audit + 3 design directions | £0 | Lead magnet. Cost to us: ~1 hour per lead. |
+| **Free** | Website audit + 3 design directions + wildcard | £0 | Lead magnet. Cost to us: ~1 hour per lead. |
 | **Website Build** | Full site (up to 10 pages + 3 layout variants per page + landing page) | TBD | Includes all Phase 1-5 deliverables: project hub, SEO report, creative process, design directions, review hub, landing page. |
 | **Website + SEO Retainer** | Full build + monthly SEO reporting, content recommendations, GBP management | TBD (build fee + monthly) | Recurring revenue. Retainer deliverables powered by roadmap commands. |
 
@@ -365,7 +365,7 @@ Concrete list of new assets and commands needed to make the funnel operational:
 
 | Asset | Description | Effort | Dependencies |
 |-------|------------|--------|-------------|
-| **`/design-directions` command** | Reads `project.json` moods + `inspiration/references.md` + Perplexity research on competitor sites and industry trends. Generates 3 distinct branded homepage concepts as self-contained HTML/CSS. Same approach used for MARR, formalised as a repeatable command. | 2-3 days | `project.json`, Perplexity MCP |
+| **`/design-directions` command** | Reads `project.json` moods + `inspiration/references.md` + Perplexity research on competitor sites and industry trends. Generates 3 mood-driven homepage concepts + a wildcard direction (driven by curated Dribbble/Webflow references in the Wildcard section of `references.md`). All self-contained HTML/CSS. **Built.** | 2-3 days | `project.json`, Perplexity MCP, curated wildcard references |
 | **`/free-audit` command** | Lighter variant of `/seo-report` extended with GBP check, schema audit, and page-level ranking assessment. Foxhue-branded output (not client-branded). | 2-3 days | `/seo-report` as base |
 | **Lead magnet landing page** | Single-purpose HTML/CSS page. "Is your website costing you customers?" headline, intake form, trust signals. Can use the `/landing-page` command pattern. | 1 day | None — can build now |
 | **Intake form** | 8-question form (see Section 10). Options: Formsubmit.co (simple, free, matches our existing pattern) or Typeform (nicer UX, paid). Needs to capture data we can feed into `project.json`. | Half day | Landing page |
@@ -393,7 +393,7 @@ With a `/design-directions` command, generation is automated — but the output 
 The real risk is quality consistency. Claude generates good design directions when guided by strong mood descriptions and research, but output quality varies. Some directions will need significant rework; others will ship as-is.
 
 **Mitigation options:**
-- Build industry-specific design direction templates and reference sets (clinic, restaurant, trades, etc.) that give Claude stronger starting points and reduce QA variance.
+- Build industry-specific design direction templates and reference sets (clinic, restaurant, trades, etc.) that give Claude stronger starting points and reduce QA variance. Wildcard reference collections can be reused across leads in the same vertical.
 - Only offer designs to "actively looking" + budget-qualified leads (the qualification logic in Section 12).
 - Refine the `/design-directions` command iteratively — each project improves the prompt and patterns.
 - Gate the designs behind a quick call for borderline leads (5-10 min video chat). Further qualifies without adding friction for hot leads.
@@ -445,7 +445,7 @@ The product roadmap (see `docs/product-roadmap.md`) already has features planned
 
 | Roadmap feature | Funnel impact |
 |----------------|---------------|
-| `/design-directions` | **The missing command.** Automates Phase 3 — the one step that doesn't have a command yet. Reads moods + research, generates 3 homepage concepts via Claude + Perplexity. Benefits every project, not just the funnel. |
+| `/design-directions` | **Built.** Automates Phase 3 — reads moods + research, generates 3 homepage concepts + a wildcard via Claude + Perplexity. Benefits every project, not just the funnel. |
 | `/style-guide` | Auto-generates a visual style guide from config. Feeds into `/design-directions` for more consistent output. |
 | Industry templates | Pre-filled `project.json` for common verticals. Gives `/design-directions` stronger starting points. Reduces QA time per lead. |
 | `/schema-markup` | Feeds into the free audit's schema section. Also an immediate deliverable for paying clients. |
@@ -499,9 +499,9 @@ Intake form (8 questions) — qualifies AND captures audit data
         ↓
 Email 2: "3 things you could fix today" (builds trust)
         ↓
-Email 3: "We've built 3 design directions for you" (the hook)
+Email 3: "We've built some design directions for you" (the hook)
         ↓
-Client sees live homepage concepts on GitHub Pages
+Client sees live homepage concepts + wildcard on GitHub Pages
         ↓
 Proposal: website build + optional SEO retainer
         ↓
